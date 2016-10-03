@@ -4,6 +4,7 @@ import Color exposing (Color)
 import Html exposing (Html)
 import Html.Attributes
 import String
+import List
 
 
 --
@@ -34,36 +35,36 @@ keepWorkingColor =
 
 
 stringExample1 =
-    ""
+    "Hello World"
 
 
-stringExample2 friendsName =
+stringExample2 friendsName = 
     -- TODO: say hello to the friend
-    ""
+    "Hello, " ++ friendsName
 
 
 formatPhoneNumber : String -> String -> String -> String
 formatPhoneNumber areaCode exchange local =
-    "(" ++ areaCode ++ ") " ++ exchange ++ "-" ++ local
+    "(" ++ areaCode ++ ")" ++ " " ++ exchange ++ "-" ++ local
 
 
 initials : String -> String -> String
 initials firstName lastName =
-    (String.left 1 firstName) ++ (String.left 1 lastName)
+    String.left 1 firstName ++ String.left 1 lastName
 
 
 pigLatin : String -> String
 pigLatin word =
-    (String.toUpper <| String.slice 1 2 word)
-        ++ (String.dropLeft 2 word)
-        ++ "-"
-        ++ (String.toLower <| String.left 1 word)
-        ++ "ay"
+    let
+        firstLetter = String.toLower (String.left 1 word)
+        restOfWord = String.dropLeft 1 word
+    in
+        String.toUpper(String.left 1 restOfWord) ++ String.dropLeft 1 restOfWord ++ "-" ++ String.toLower firstLetter ++ "ay"
 
 
 mathExample1 =
     -- TODO: calculate the square root of 20.25
-    0
+    sqrt 20.25
 
 
 
@@ -75,17 +76,17 @@ mathExample1 =
 reverseTheList inputList =
     -- TODO: return the reversed inputList
     -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/List for useful functions
-    []
+    List.reverse inputList
 
 
 addOne inputList =
     -- TODO: add one to every item in the list
-    []
+    List.map (\number -> number + 1) inputList
 
 
 removeOs inputList =
     -- TODO: remove all entries that start with "O"
-    []
+    List.filter (\word -> String.toUpper(String.left 1 word) /= "O") inputList
 
 
 
@@ -95,19 +96,15 @@ removeOs inputList =
 
 
 createPoint x y =
-    { x = x, y = y }
+    {x = 4, y = 2}
 
 
 grandmotherNames person =
-    [ person.father.mother.name
-    , person.mother.mother.name
-    ]
+    [person.father.mother.name, person.mother.mother.name]
 
 
 tradePlaces a b =
-    ( { a | location = b.location }
-    , { b | location = a.location }
-    )
+    ({a | location = b.location}, {b | location = a.location})
 
 
 
